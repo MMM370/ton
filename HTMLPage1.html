@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заяц/666</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            background: #1a0000;
+            color: white;
+            text-align: center;
+            font-family: Arial;
+            padding: 20px;
+            margin: 0;
+        }
+        .title {
+            font-size: 48px;
+            color: red;
+            text-shadow: 0 0 10px red;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #ff6666;
+            margin-top: 30px;
+        }
+        .game-btn {
+            width: 150px;
+            height: 150px;
+            border-radius: 75px;
+            font-size: 60px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+        }
+        .red { background: red; }
+        .black { background: black; color: white; border: 2px solid white; }
+        .cases {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .case {
+            background: #333;
+            border: 2px solid red;
+            border-radius: 20px;
+            padding: 15px;
+            width: 120px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .case:hover {
+            transform: scale(1.05);
+            background: #444;
+        }
+        .price {
+            color: gold;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .emoji {
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">🐰 ЗАЯЦ/666</div>
+    
+    <h2>🔴 КРАСНОЕ / ЧЕРНОЕ ⚫</h2>
+    <p>1 звезда за игру</p>
+    <button class="game-btn red" onclick="playGame('red')">🔴</button>
+    <button class="game-btn black" onclick="playGame('black')">⚫</button>
+    
+    <h2>📦 КЕЙСЫ</h2>
+    <div class="cases">
+        <div class="case" onclick="openCase(1)">
+            <div class="emoji">📦</div>
+            <div>Базовый</div>
+            <div class="price">10 ⭐️</div>
+        </div>
+        <div class="case" onclick="openCase(2)">
+            <div class="emoji">🔮</div>
+            <div>Мистический</div>
+            <div class="price">20 ⭐️</div>
+        </div>
+        <div class="case" onclick="openCase(3)">
+            <div class="emoji">🐺</div>
+            <div>Волчий</div>
+            <div class="price">30 ⭐️</div>
+        </div>
+        <div class="case" onclick="openCase(4)">
+            <div class="emoji">🔥</div>
+            <div>Адский</div>
+            <div class="price">40 ⭐️</div>
+        </div>
+        <div class="case" onclick="openCase(5)">
+            <div class="emoji">👑</div>
+            <div>Королевский</div>
+            <div class="price">50 ⭐️</div>
+        </div>
+        <div class="case" onclick="openCase(6)">
+            <div class="emoji">⚰️</div>
+            <div>666</div>
+            <div class="price">60 ⭐️</div>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
+
+        function playGame(color) {
+            tg.sendData(JSON.stringify({
+                action: 'game',
+                color: color
+            }));
+            tg.showAlert(`Играем: ${color === 'red' ? '🔴 Красное' : '⚫ Черное'}`);
+        }
+
+        function openCase(caseId) {
+            tg.sendData(JSON.stringify({
+                action: 'case',
+                case_id: caseId
+            }));
+            
+            const caseNames = ['Базовый', 'Мистический', 'Волчий', 'Адский', 'Королевский', '666'];
+            tg.showAlert(`Открываем: ${caseNames[caseId-1]} кейс`);
+        }
+    </script>
+</body>
+</html>
